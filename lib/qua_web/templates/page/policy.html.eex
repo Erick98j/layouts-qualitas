@@ -1,0 +1,154 @@
+
+        <div id="layoutSidenav_content">
+            <main>
+
+                <div class="container" style="margin-top: 150px;">
+                    <div class="row mx-5">
+
+                        <!-- Area Chart -->
+                        <div class="col-xl-12 col-lg-12">
+                            <div class="card shadow container mt-n10">
+
+                                <!-- Card Header - Dropdown -->
+                                <div class="p-0 mt-5">
+                                    <div class="container">
+                                        <h1 class="display-4"><a class="text-dark" href="/policies"><i class="fas fa-chevron-left"></i></a> Póliza <small style="color: #C9C9C9;">3190279938</small>
+                                        </h1>
+                                        <hr>
+                                        <h1 class="mt-4"><i class="fas fa-file-alt"></i> Póliza</h1>
+                                        <div class="container mt-4">
+                                            <div class="row">
+                                                <div class="col-4">
+                                                    <ul class="list-group" style="list-style-type: none;">
+                                                        <li><strong>Aseguradora:</strong><span> Qualitas</span></li>
+                                                        <li><strong>Estatus:</strong><span> Qualitas</span></li>
+                                                        <li><strong>Válido desde:</strong><span> 21/10/2020</span></li>
+                                                        <li><strong>Válido hasta:</strong><span> 21/10/2021</span></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="col-4">
+                                                    <ul class="list-group" style="list-style-type: none;">
+                                                        <li><strong>Fecha de primer pago:</strong><span> 21/10/2020</span></li>
+                                                        <li><strong>Fecha del siguiente pago:</strong><span> 21/01/2021</span></li>
+                                                        <li><strong>Moneda:</strong><span> MXN</span></li>
+                                                        <li><strong>Estatus de pago:</strong><span> Cobrar</span></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="col-4">
+                                                    <ul class="list-group" style="list-style-type: none;">
+                                                        <li><strong>Periodisidad:</strong><span> Trimestral</span></li>
+                                                        <li><strong>Fecha de emisión:</strong><span> 21/10/2020</span></li>
+                                                        <li><strong>Prima neta:</strong><span> $15,000.00</span></li>
+                                                        <li><strong>Prima total:</strong><span> $18,000.00</span></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <hr class="mt-4 mb-4">
+                                        </div>
+                                        <h1 class="mt-4"><i class="fas fa-user"></i> Asegurado</h1>
+                                            <div class="container mt-4">
+                                                <div class="row">
+                                                    <div class="col-12 d-flex justify-content-center">
+                                                        <ul class="list-group" style="list-style-type: none;">
+                                                            <li><strong>Nombre:</strong><span> Victor Manuel Flores Santaloalla</span></li>
+                                                            <li><strong>Dirección:</strong><span> Villa Carlos 7476 Benito Juarez, Nezahualcoyotl</span></li>
+                                                            <li><strong>Teléfono 1:</strong><span style="padding-right: 20px;"> 5637827389</span>
+                                                                <strong>Teléfono 2:</strong><span> 55838920093</span>
+                                                            </li>
+                                                            <li><strong>Email:</strong><span> loscarepapa@gmail.com</span></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <hr class="mt-4 mb-4">
+                                            </div>
+                                            <h1><i class="fas fa-shield-alt"></i> Cobertura</h1>
+                                            <div class="container mt-4">
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <ul class="list-group" style="list-style-type: none;">
+                                                            <li><strong>Cobertura:</strong><span> Amplia</span></li>
+                                                        </ul>
+                                                        <div class="table-responsive">
+                                                            <table class="table table-striped mt-4">
+                                                                <thead>
+                                                                    <th>Cobertura</th>
+                                                                    <th>Suma asegurada</th>
+                                                                    <th>Deducible</th>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td>RC</td>
+                                                                        <td>$500.000.00</td>
+                                                                        <td>7%</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>RC</td>
+                                                                        <td>$500.000.00</td>
+                                                                        <td>7%</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>RC</td>
+                                                                        <td>$500.000.00</td>
+                                                                        <td>7%</td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <hr class="mt-4 mb-4">
+                                            </div>
+                                            <h1 class="mt-4"><i class="fas fa-paperclip"></i> Recibos</h1>
+                                            <div class="container mt-4">
+                                                <div class="row border border-dark p-4">
+                                                    <div class="col-6 p-4">
+                                                        <ul class="list-group" style="list-style-type: none;">
+                                                            <li><strong>Serie:</strong>
+                                                                <select id="series">
+                                                                    <option value="1">1</option>
+                                                                </select>
+                                                            </li>
+                                                            <li><strong>Válido desde:</strong><span> 12 PM del 01/10/2020</span></li>
+                                                            <li><strong>Válido hasta:</strong><span> 12 PM del 01/11/2020</span></li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <table class="table table-striped mt-4">
+                                                            <tr>
+                                                                <th>Prima neta</th>
+                                                                <th>$515</th>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>Tasa Fin P.F.</th>
+                                                                <th>$27.77</th>
+                                                           </tr>
+                                                            <tr>
+                                                                <th>gtos. Expedición Póliza</th>
+                                                                <th>$520.00</th>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>IVA</th>
+                                                                <th>$170.05</th>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>Importe total</th>
+                                                                <th>$1233.11</th>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                </div>
+
+                                        <!-- Card Body -->
+                                        <div class="card-body">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Main page content-->
+
+            </main>
+
+        </div>
+    </div>
