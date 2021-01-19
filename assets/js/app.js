@@ -3,8 +3,9 @@
 // its own CSS file.
 import "../css/app.scss"
 import "../css/app.scss"
-import "../static/assets/demo/datatables-demo"
+import "../static/js/datatable"
 import "../static/js/scripts"
+
 
 // webpack automatically bundles all modules in your
 // entry points. Those entry points can be configured

@@ -13,7 +13,7 @@
                                     <div class="page-header-subtitle">Administra tu cartera</div>
                                 </div>
                                 <div class="col-12 col-xl-auto mt-4">
-                                    <button class="btn btn-white text-green">Sincronizar pólizas<i class="fas fa-sync ml-2"></i></button>
+                                    <button class="btn btn-success">Sincronizar pólizas<i class="fas fa-sync ml-2"></i></button>
                                 </div>
                             </div>
                         </div>
@@ -45,8 +45,7 @@
                             <!-- Card Header - Dropdown -->
                             <div class="p-0 mt-5">
                                 <div class="datatable table-responsive">
-                                    <table class="table table-hover" id="dataTableActivity" width="100%"
-                                        cellspacing="0">
+                                    <table class="table table-hover" id="dataTableActivity" width="100%"cellspacing="0">
                                         <thead class="text-dark">
                                             <tr>
                                                 <th>Aseguradora</th>
@@ -57,34 +56,52 @@
                                                 <th>Estatus</th>
                                                 <th>Vencimiento de pago</th>
                                                 <th>Cantidad de pago</th>
-                                                <th>Status de pago</th>
+                                                <th>Estatus de pago</th>
                                                 <th>Sincronización</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr class="tr_policy">
+                                            <%= for poliza <- @polizas do %>
+                                            <tr class="tr_policy" id="<%= poliza.numero %>" onclick="show_extended_view('<%= poliza.numero %>', '<%= poliza.telefono1 %>', '<%= poliza.telefono2 %>', '<%= poliza.email %>', '<%= poliza.cobertura %>','<%= poliza.periodisidad %>','<%= poliza.vencimiento_de_poliza %>','<%= poliza.importe_total %>','<%= poliza.numero_de_recibo %>','<%= poliza.instrucciones %>','<%= poliza.whatsapp %>')">
                                                 <td class="text-center">
-                                                    <img src="<%= Routes.static_path(@conn, "/images/icon_qualitas.svg") %>" alt="Qualitas"
+                                                    <img src="<%= Routes.static_path(@conn, "/images/icon_#{poliza.aseguradora}.svg") %>" alt="Qualitas"
                                                         width="30px" height="30px">
                                                 </td>
-                                                <td>3190273105</td>
-                                                <td>Victor Manuel Flores</td>
-                                                <td>TR Kenworth T660 Aerocab Aerodyne Sleeper 62" STD</td>
-                                                <td>23/10/2021</td>
+                                                <td><%= poliza.numero %></td>
+                                                <td><%= poliza.nombre %></td>
+                                                <td><%= poliza.vehiculo %></td>
+                                                <td><%= poliza.vencimiento %></td>
                                                 <td>
-                                                    <h3><span class="badge badge-success badge-pill">Activa</span>
+                                                    <h3>
+                                                        <%= case poliza.estatus do %>
+                                                            <%= "Activa" -> %><span class="badge badge-success badge-pill"><%= poliza.estatus %></span>
+                                                            <%= "Finalizada" -> %><span class="badge badge-warning badge-pill"><%= poliza.estatus %></span>
+                                                            <%= "Cancelada" -> %><span class="badge badge-danger badge-pill"><%= poliza.estatus %></span>
+                                                        <% end %></span>
                                                     </h3>
                                                 </td>
-                                                <td>11/01/2021</td>
-                                                <td>$18,000.00</td>
+                                                <td><%= poliza.vencimiento_de_pago %></td>
+                                                <td><%= poliza.cantidad_de_pago %></td>
                                                 <td>
-                                                    <h3><span class="badge badge-warning badge-pill">Cobrar</span>
+                                                    <h3>
+                                                        <%= case poliza.estatus_de_pago do %>
+                                                            <%= "Cobrar" -> %><span class="badge badge-warning badge-pill"><%= poliza.estatus_de_pago %></span>
+                                                            <%= "Pendiente" -> %><span class="badge badge-success badge-pill"><%= poliza.estatus_de_pago %></span>
+                                                            <%= "Vencido" -> %><span class="badge badge-danger badge-pill"><%= poliza.estatus_de_pago %></span>
+                                                        <% end %></span>
                                                     </h3>
                                                 </td>
                                                 <td style="display: flex; justify-content: space-around;">
-                                                    <button class="btn btn-xs btn-success btn-icon" type="button"
-                                                        data-toggle="tooltip" data-placement="bottom" title=""
-                                                        data-original-title="Sincronizada hace un momento"></button>
+                                                    <%= case poliza.sincronizacion do %>
+                                                        <%= "Sincronizada hace un momento" -> %>
+                                                            <button class="btn btn-xs btn-success btn-icon" type="button"
+                                                            data-toggle="tooltip" data-placement="bottom" title=""
+                                                            data-original-title="<%= poliza.sincronizacion %>"></button>
+                                                        <%= "Sincronizada hace una hora" -> %>
+                                                            <button class="btn btn-xs btn-warning btn-icon" type="button"
+                                                            data-toggle="tooltip" data-placement="bottom" title=""
+                                                            data-original-title="<%= poliza.sincronizacion %>"></button>
+                                                    <% end %>
                                                     <button
                                                         class="btn btn-datatable btn-icon btn-transparent-dark mr-2 btn-md"
                                                         id="dropdownMenuButton" type="button" data-toggle="dropdown"
@@ -92,316 +109,11 @@
                                                             data-feather="more-vertical"></i></button>
                                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                                         <a class="dropdown-item" href="#!">Sincroizar</a>
-                                                        <a class="dropdown-item" href="/policy">Ver póliza</a>
+                                                        <a class="dropdown-item" href="/policy/<%= poliza.numero %>">Ver póliza</a>
                                                     </div>
                                                 </td>
                                             </tr>
-                                            <tr class="tr_policy">
-                                                <td class="text-center">
-                                                    <img src="<%= Routes.static_path(@conn, "/images/icon_qualitas.svg") %>" alt="Qualitas"
-                                                        width="30px" height="30px">
-                                                </td>
-                                                <td>3190273105</td>
-                                                <td>Victor Manuel Flores</td>
-                                                <td>TR Kenworth T660 Aerocab Aerodyne Sleeper 62" STD</td>
-                                                <td>23/10/2021</td>
-                                                <td>
-                                                    <h3><span class="badge badge-success badge-pill">Activa</span>
-                                                    </h3>
-                                                </td>
-                                                <td>11/01/2021</td>
-                                                <td>$18,000.00</td>
-                                                <td>
-                                                    <h3><span class="badge badge-warning badge-pill">Cobrar</span>
-                                                    </h3>
-                                                </td>
-                                                <td style="display: flex; justify-content: space-around;">
-                                                    <button class="btn btn-xs btn-success btn-icon" type="button"
-                                                        data-toggle="tooltip" data-placement="bottom" title=""
-                                                        data-original-title="Sincronizada hace un momento"></button>
-                                                    <button
-                                                        class="btn btn-datatable btn-icon btn-transparent-dark mr-2 btn-md"
-                                                        id="dropdownMenuButton" type="button" data-toggle="dropdown"
-                                                        aria-haspopup="true" aria-expanded="false"><i
-                                                            data-feather="more-vertical"></i></button>
-                                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                        <a class="dropdown-item" href="#!">Sincroizar</a>
-                                                        <a class="dropdown-item" href="/policy">Ver póliza</a>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr class="tr_policy">
-                                                <td class="text-center">
-                                                    <img src="<%= Routes.static_path(@conn, "/images/icon_qualitas.svg") %>" alt="Qualitas"
-                                                        width="30px" height="30px">
-                                                </td>
-                                                <td>3190273105</td>
-                                                <td>Victor Manuel Flores</td>
-                                                <td>TR Kenworth T660 Aerocab Aerodyne Sleeper 62" STD</td>
-                                                <td>23/10/2021</td>
-                                                <td>
-                                                    <h3><span class="badge badge-success badge-pill">Activa</span>
-                                                    </h3>
-                                                </td>
-                                                <td>11/01/2021</td>
-                                                <td>$18,000.00</td>
-                                                <td>
-                                                    <h3><span class="badge badge-warning badge-pill">Cobrar</span>
-                                                    </h3>
-                                                </td>
-                                                <td style="display: flex; justify-content: space-around;">
-                                                    <button class="btn btn-xs btn-success btn-icon" type="button"
-                                                        data-toggle="tooltip" data-placement="bottom" title=""
-                                                        data-original-title="Sincronizada hace un momento"></button>
-                                                    <button
-                                                        class="btn btn-datatable btn-icon btn-transparent-dark mr-2 btn-md"
-                                                        id="dropdownMenuButton" type="button" data-toggle="dropdown"
-                                                        aria-haspopup="true" aria-expanded="false"><i
-                                                            data-feather="more-vertical"></i></button>
-                                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                        <a class="dropdown-item" href="#!">Sincroizar</a>
-                                                        <a class="dropdown-item" href="/policy">Ver póliza</a>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr class="tr_policy">
-                                                <td class="text-center">
-                                                    <img src="<%= Routes.static_path(@conn, "/images/icon_qualitas.svg") %>" alt="Qualitas"
-                                                        width="30px" height="30px">
-                                                </td>
-                                                <td>3190273105</td>
-                                                <td>Victor Manuel Flores</td>
-                                                <td>TR Kenworth T660 Aerocab Aerodyne Sleeper 62" STD</td>
-                                                <td>23/10/2021</td>
-                                                <td>
-                                                    <h3><span class="badge badge-success badge-pill">Activa</span>
-                                                    </h3>
-                                                </td>
-                                                <td>11/01/2021</td>
-                                                <td>$18,000.00</td>
-                                                <td>
-                                                    <h3><span class="badge badge-warning badge-pill">Cobrar</span>
-                                                    </h3>
-                                                </td>
-                                                <td style="display: flex; justify-content: space-around;">
-                                                    <button class="btn btn-xs btn-success btn-icon" type="button"
-                                                        data-toggle="tooltip" data-placement="bottom" title=""
-                                                        data-original-title="Sincronizada hace un momento"></button>
-                                                    <button
-                                                        class="btn btn-datatable btn-icon btn-transparent-dark mr-2 btn-md"
-                                                        id="dropdownMenuButton" type="button" data-toggle="dropdown"
-                                                        aria-haspopup="true" aria-expanded="false"><i
-                                                            data-feather="more-vertical"></i></button>
-                                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                        <a class="dropdown-item" href="#!">Sincroizar</a>
-                                                        <a class="dropdown-item" href="/policy">Ver póliza</a>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr class="tr_policy">
-                                                <td class="text-center">
-                                                    <img src="<%= Routes.static_path(@conn, "/images/icon_qualitas.svg") %>" alt="Qualitas"
-                                                        width="30px" height="30px">
-                                                </td>
-                                                <td>3190273105</td>
-                                                <td>Victor Manuel Flores</td>
-                                                <td>TR Kenworth T660 Aerocab Aerodyne Sleeper 62" STD</td>
-                                                <td>23/10/2021</td>
-                                                <td>
-                                                    <h3><span class="badge badge-success badge-pill">Activa</span>
-                                                    </h3>
-                                                </td>
-                                                <td>11/01/2021</td>
-                                                <td>$18,000.00</td>
-                                                <td>
-                                                    <h3><span class="badge badge-warning badge-pill">Cobrar</span>
-                                                    </h3>
-                                                </td>
-                                                <td style="display: flex; justify-content: space-around;">
-                                                    <button class="btn btn-xs btn-success btn-icon" type="button"
-                                                        data-toggle="tooltip" data-placement="bottom" title=""
-                                                        data-original-title="Sincronizada hace un momento"></button>
-                                                    <button
-                                                        class="btn btn-datatable btn-icon btn-transparent-dark mr-2 btn-md"
-                                                        id="dropdownMenuButton" type="button" data-toggle="dropdown"
-                                                        aria-haspopup="true" aria-expanded="false"><i
-                                                            data-feather="more-vertical"></i></button>
-                                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                        <a class="dropdown-item" href="#!">Sincroizar</a>
-                                                        <a class="dropdown-item" href="/policy">Ver póliza</a>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr class="tr_policy">
-                                                <td class="text-center">
-                                                    <img src="<%= Routes.static_path(@conn, "/images/icon_qualitas.svg") %>" alt="Qualitas"
-                                                        width="30px" height="30px">
-                                                </td>
-                                                <td>3190273105</td>
-                                                <td>Victor Manuel Flores</td>
-                                                <td>TR Kenworth T660 Aerocab Aerodyne Sleeper 62" STD</td>
-                                                <td>23/10/2021</td>
-                                                <td>
-                                                    <h3><span class="badge badge-success badge-pill">Activa</span>
-                                                    </h3>
-                                                </td>
-                                                <td>11/01/2021</td>
-                                                <td>$18,000.00</td>
-                                                <td>
-                                                    <h3><span class="badge badge-warning badge-pill">Cobrar</span>
-                                                    </h3>
-                                                </td>
-                                                <td style="display: flex; justify-content: space-around;">
-                                                    <button class="btn btn-xs btn-success btn-icon" type="button"
-                                                        data-toggle="tooltip" data-placement="bottom" title=""
-                                                        data-original-title="Sincronizada hace un momento"></button>
-                                                    <button
-                                                        class="btn btn-datatable btn-icon btn-transparent-dark mr-2 btn-md"
-                                                        id="dropdownMenuButton" type="button" data-toggle="dropdown"
-                                                        aria-haspopup="true" aria-expanded="false"><i
-                                                            data-feather="more-vertical"></i></button>
-                                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                        <a class="dropdown-item" href="#!">Sincroizar</a>
-                                                        <a class="dropdown-item" href="/policy">Ver póliza</a>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr class="tr_policy">
-                                                <td class="text-center">
-                                                    <img src="<%= Routes.static_path(@conn, "/images/icon_qualitas.svg") %>" alt="Qualitas"
-                                                        width="30px" height="30px">
-                                                </td>
-                                                <td>3190273105</td>
-                                                <td>Victor Manuel Flores</td>
-                                                <td>TR Kenworth T660 Aerocab Aerodyne Sleeper 62" STD</td>
-                                                <td>23/10/2021</td>
-                                                <td>
-                                                    <h3><span class="badge badge-success badge-pill">Activa</span>
-                                                    </h3>
-                                                </td>
-                                                <td>11/01/2021</td>
-                                                <td>$18,000.00</td>
-                                                <td>
-                                                    <h3><span class="badge badge-warning badge-pill">Cobrar</span>
-                                                    </h3>
-                                                </td>
-                                                <td style="display: flex; justify-content: space-around;">
-                                                    <button class="btn btn-xs btn-success btn-icon" type="button"
-                                                        data-toggle="tooltip" data-placement="bottom" title=""
-                                                        data-original-title="Sincronizada hace un momento"></button>
-                                                    <button
-                                                        class="btn btn-datatable btn-icon btn-transparent-dark mr-2 btn-md"
-                                                        id="dropdownMenuButton" type="button" data-toggle="dropdown"
-                                                        aria-haspopup="true" aria-expanded="false"><i
-                                                            data-feather="more-vertical"></i></button>
-                                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                        <a class="dropdown-item" href="#!">Sincroizar</a>
-                                                        <a class="dropdown-item" href="/policy">Ver póliza</a>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr class="tr_policy">
-                                                <td class="text-center">
-                                                    <img src="<%= Routes.static_path(@conn, "/images/icon_qualitas.svg") %>" alt="Qualitas"
-                                                        width="30px" height="30px">
-                                                </td>
-                                                <td>3190273105</td>
-                                                <td>Victor Manuel Flores</td>
-                                                <td>TR Kenworth T660 Aerocab Aerodyne Sleeper 62" STD</td>
-                                                <td>23/10/2021</td>
-                                                <td>
-                                                    <h3><span class="badge badge-success badge-pill">Activa</span>
-                                                    </h3>
-                                                </td>
-                                                <td>11/01/2021</td>
-                                                <td>$18,000.00</td>
-                                                <td>
-                                                    <h3><span class="badge badge-warning badge-pill">Cobrar</span>
-                                                    </h3>
-                                                </td>
-                                                <td style="display: flex; justify-content: space-around;">
-                                                    <button class="btn btn-xs btn-success btn-icon" type="button"
-                                                        data-toggle="tooltip" data-placement="bottom" title=""
-                                                        data-original-title="Sincronizada hace un momento"></button>
-                                                    <button
-                                                        class="btn btn-datatable btn-icon btn-transparent-dark mr-2 btn-md"
-                                                        id="dropdownMenuButton" type="button" data-toggle="dropdown"
-                                                        aria-haspopup="true" aria-expanded="false"><i
-                                                            data-feather="more-vertical"></i></button>
-                                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                        <a class="dropdown-item" href="#!">Sincroizar</a>
-                                                        <a class="dropdown-item" href="/policy">Ver póliza</a>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr class="tr_policy">
-                                                <td class="text-center">
-                                                    <img src="<%= Routes.static_path(@conn, "/images/icon_qualitas.svg") %>" alt="Qualitas"
-                                                        width="30px" height="30px">
-                                                </td>
-                                                <td>3190273105</td>
-                                                <td>Victor Manuel Flores</td>
-                                                <td>TR Kenworth T660 Aerocab Aerodyne Sleeper 62" STD</td>
-                                                <td>23/10/2021</td>
-                                                <td>
-                                                    <h3><span class="badge badge-success badge-pill">Activa</span>
-                                                    </h3>
-                                                </td>
-                                                <td>11/01/2021</td>
-                                                <td>$18,000.00</td>
-                                                <td>
-                                                    <h3><span class="badge badge-warning badge-pill">Cobrar</span>
-                                                    </h3>
-                                                </td>
-                                                <td style="display: flex; justify-content: space-around;">
-                                                    <button class="btn btn-xs btn-success btn-icon" type="button"
-                                                        data-toggle="tooltip" data-placement="bottom" title=""
-                                                        data-original-title="Sincronizada hace un momento"></button>
-                                                    <button
-                                                        class="btn btn-datatable btn-icon btn-transparent-dark mr-2 btn-md"
-                                                        id="dropdownMenuButton" type="button" data-toggle="dropdown"
-                                                        aria-haspopup="true" aria-expanded="false"><i
-                                                            data-feather="more-vertical"></i></button>
-                                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                        <a class="dropdown-item" href="#!">Sincroizar</a>
-                                                        <a class="dropdown-item" href="/policy">Ver póliza</a>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr class="tr_policy">
-                                                <td class="text-center">
-                                                    <img src="<%= Routes.static_path(@conn, "/images/icon_qualitas.svg") %>" alt="Qualitas"
-                                                        width="30px" height="30px">
-                                                </td>
-                                                <td>3190273105</td>
-                                                <td>Victor Manuel Flores</td>
-                                                <td>TR Kenworth T660 Aerocab Aerodyne Sleeper 62" STD</td>
-                                                <td>23/10/2021</td>
-                                                <td>
-                                                    <h3><span class="badge badge-success badge-pill">Activa</span>
-                                                    </h3>
-                                                </td>
-                                                <td>11/01/2021</td>
-                                                <td>$18,000.00</td>
-                                                <td>
-                                                    <h3><span class="badge badge-warning badge-pill">Cobrar</span>
-                                                    </h3>
-                                                </td>
-                                                <td style="display: flex; justify-content: space-around;">
-                                                    <button class="btn btn-xs btn-success btn-icon" type="button"
-                                                        data-toggle="tooltip" data-placement="bottom" title=""
-                                                        data-original-title="Sincronizada hace un momento"></button>
-                                                    <button
-                                                        class="btn btn-datatable btn-icon btn-transparent-dark mr-2 btn-md"
-                                                        id="dropdownMenuButton" type="button" data-toggle="dropdown"
-                                                        aria-haspopup="true" aria-expanded="false"><i
-                                                            data-feather="more-vertical"></i></button>
-                                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                        <a class="dropdown-item" href="#!">Sincroizar</a>
-                                                        <a class="dropdown-item" href="/policy">Ver póliza</a>
-                                                    </div>
-                                                </td>
-                                            </tr>
+                                            <% end %>
                                         </tbody>
                                     </table>
                                 </div>
